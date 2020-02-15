@@ -8,7 +8,7 @@ import org.jsoup.nodes.Document;
 public class Connection {
 
     public Document connect(){
-        try {
+        try {           
             Document document= Jsoup.connect("http://www.swellmap.com/boating").get();
             return document;
             }
