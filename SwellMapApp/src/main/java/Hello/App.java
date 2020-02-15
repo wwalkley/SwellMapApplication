@@ -1,13 +1,12 @@
 package Hello;
 
-/**
- * Hello world!
- *
- */
+import Hello.Controller;
+
 public class App 
 {
     public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
+    {   
+        Controller contoller = new Controller();
+        contoller.runApp();
     }
 }
