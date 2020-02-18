@@ -37,14 +37,13 @@ public class RowsSelector{
 
     public void whichHoursToSelect(String date) {
         int unroundedHour = getHour(date);
-        System.out.println(unroundedHour);
         if (unroundedHour >= 4){
            this.hours.add("4");
            if (unroundedHour >= 10){
                 this.hours.add("10");           
                 if (unroundedHour >= 16){
                 this.hours.add("16");
-                    if (unroundedHour >= 24){
+                    if (unroundedHour >= 22){
                         this.hours.add("22");
                     }
                 }

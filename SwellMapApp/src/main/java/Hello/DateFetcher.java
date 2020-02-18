@@ -1,6 +1,5 @@
 package Hello;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -13,7 +12,6 @@ public class DateFetcher {
         Date date = new Date();
         return dateFormat.format(date);
     }
-
 
     private DateFormat setDateFormat() {
         DateFormat dateFormat = new SimpleDateFormat("EEE HH:mm:ss");
