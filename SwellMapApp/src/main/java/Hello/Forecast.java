@@ -1,6 +1,7 @@
 package Hello;
 
 public class Forecast {
+    private String location;
     private String time;
     private int rating;
     private String summary;
@@ -13,12 +14,12 @@ public class Forecast {
     private String windSpeed;
     private double gust;
 
-
-
     public Forecast() {
     }
 
-    public Forecast(String time, int rating, String summary, double seaHeight, double swellHeight, double chopHeight, int period, String swellDirection, String seaDirection, String windSpeed, double gust) {
+    public Forecast(String location, String time, int rating, String summary, double seaHeight, double swellHeight,
+            double chopHeight, int period, String swellDirection, String seaDirection, String windSpeed, double gust) {
+        this.location = location;
         this.time = time;
         this.rating = rating;
         this.summary = summary;
@@ -32,8 +33,16 @@ public class Forecast {
         this.gust = gust;
     }
 
+    public String getLocation() {
+        return this.location;
+    }
+
     public String getTime() {
         return this.time;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public void setTime(String time) {
@@ -120,58 +129,8 @@ public class Forecast {
         this.gust = gust;
     }
 
-    public Forecast time(String time) {
-        this.time = time;
-        return this;
-    }
-
-    public Forecast rating(int rating) {
-        this.rating = rating;
-        return this;
-    }
-
-    public Forecast summary(String summary) {
-        this.summary = summary;
-        return this;
-    }
-
-    public Forecast seaHeight(double seaHeight) {
-        this.seaHeight = seaHeight;
-        return this;
-    }
-
-    public Forecast swellHeight(double swellHeight) {
-        this.swellHeight = swellHeight;
-        return this;
-    }
-
-    public Forecast chopHeight(double chopHeight) {
-        this.chopHeight = chopHeight;
-        return this;
-    }
-
-    public Forecast period(int period) {
-        this.period = period;
-        return this;
-    }
-
-    public Forecast swellDirection(String swellDirection) {
-        this.swellDirection = swellDirection;
-        return this;
-    }
-
-    public Forecast seaDirection(String seaDirection) {
-        this.seaDirection = seaDirection;
-        return this;
-    }
-
-    public Forecast windSpeed(String windSpeed) {
-        this.windSpeed = windSpeed;
-        return this;
-    }
-
-    public Forecast gust(double gust) {
-        this.gust = gust;
-        return this;
+    @Override
+    public String toString() {
+        return super.toString();
     }
 }

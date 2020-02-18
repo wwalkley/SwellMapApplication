@@ -18,5 +18,5 @@ public class DataFetch {
         scanner.close();
         return locations;
     }
-    
+
 }
