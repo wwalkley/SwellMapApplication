@@ -7,9 +7,9 @@ import org.jsoup.nodes.Document;
 
 public class Connection {
 
-    public Document connect(){
+    public Document connect(String location){
         try {           
-            Document document= Jsoup.connect("http://www.swellmap.com/boating").get();
+            Document document= Jsoup.connect("http://www.swellmap.com" + location).get();
             return document;
             }
         catch (IOException e){
