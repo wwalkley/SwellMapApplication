@@ -1,6 +1,6 @@
 import java.sql.*;
 
-public class SQLiteJDBC {
+public class CreateTable {
 
    public static void main(String args[]) {
       Connection c = null;
@@ -13,11 +13,20 @@ public class SQLiteJDBC {
 
          stmt = c.createStatement();
          String sql = "CREATE TABLE forecasts " 
-               + "(REGION INT NOT NULL," 
+               + "(REGION TEXT NOT NULL," 
                + " LOCATION TEXT NOT NULL, "
+               + " TIME TEXT NOT NULL, " 
                + " RATING INT NOT NULL, " 
-               + " ADDRESS CHAR(50), " 
-               + " SALARY         REAL)";
+               + " SUMMARY TEXT NOT NULL,"
+               + " SEA_HEIGHT DOUBLE NOT NULL, " 
+               + " SWELL_HEIGHT DOUBLE NOT NULL, " 
+               + " CHOP_HEIGHT DOUBLE NOT NULL, " 
+               + " PERIOD INT NOT NULL, " 
+               + " SWELL_DIRECTION TEXT NOT NULL, " 
+               + " SEA_DIRECTION TEXT NOT NULL, " 
+               + " WIND_DIRECTION TEXT NOT NULL, " 
+               + " WIND_SPEED INT NOT NULL, "
+               + " GUST INT NOT NULL) ";
          stmt.executeUpdate(sql);
          stmt.close();
          c.close();

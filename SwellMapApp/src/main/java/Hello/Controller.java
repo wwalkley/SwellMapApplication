@@ -1,9 +1,7 @@
 package Hello;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import org.json.simple.parser.ParseException;
 import org.jsoup.nodes.Document;
@@ -11,7 +9,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class Controller {
-    private Connection connection;
+    private JSOUPConnection connection;
     private DataFetch dataFetcher;
     private DateFetcher dateFetcher;
     private RowsSelector rowsSelector;
@@ -21,7 +19,7 @@ public class Controller {
     ArrayList<Region> regions;
 
     public Controller() {
-        this.connection = new Connection();
+        this.connection = new JSOUPConnection();
         this.dataFetcher = new DataFetch();
         this.dateFetcher = new DateFetcher();
         this.rowsSelector = new RowsSelector();
@@ -46,6 +44,7 @@ public class Controller {
                         String summary = getSummary(element);
                         String regionName = region.getName();
                         Forecast forecast = extractForecast(element, location, summary, regionName);
+                        System.out.println(forecast);
                         this.database.sendToDatabase(forecast);
                     }
                 }
