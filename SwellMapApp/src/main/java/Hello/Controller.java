@@ -32,8 +32,7 @@ public class Controller {
     }
 
     public void runApp() throws IOException, ParseException {
-        //String dateTimeNow = dateFetcher.getTodaysDateTime();
-        String dateTimeNow = "Wed 14:00:00";
+        String dateTimeNow = dateFetcher.getTodaysDateTime();
         this.rows = this.rowsSelector.rowsSelector(dateTimeNow);
         this.regions = this.dataFetcher.fetchLocations();
         if (rows.isEmpty()) {
@@ -47,7 +46,6 @@ public class Controller {
                         String summary = getSummary(element);
                         String regionName = region.getName();
                         Forecast forecast = extractForecast(element, location, summary, regionName);
-                        System.out.println(forecast);
                         this.database.sendToDatabase(forecast);
                     }
                 }

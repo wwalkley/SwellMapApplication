@@ -19,8 +19,9 @@ public class Forecast {
     public Forecast() {
     }
 
-    public Forecast(String region, String location, String time, int rating, String summary, double seaHeight, double swellHeight,
-            double chopHeight, int period, String swellDirection, String seaDirection, String windDirection, int windSpeed, int gust) {
+    public Forecast(String region, String location, String time, int rating, String summary, double seaHeight,
+            double swellHeight, double chopHeight, int period, String swellDirection, String seaDirection,
+            String windDirection, int windSpeed, int gust) {
         this.region = region;
         this.location = location;
         this.time = time;
@@ -37,11 +38,11 @@ public class Forecast {
         this.gust = gust;
     }
 
-    public String getRegion(){
+    public String getRegion() {
         return this.region;
     }
 
-    public String setRegion(String region){
+    public String setRegion(String region) {
         return this.region = region;
     }
 
@@ -58,7 +59,7 @@ public class Forecast {
     }
 
     public void setTime(String time) {
-       this.time = time;
+        this.time = time;
     }
 
     public int getRating() {
@@ -66,9 +67,9 @@ public class Forecast {
     }
 
     public void setRating(String rating) {
-        if (isNumeric(rating)){
+        if (isNumeric(rating)) {
             this.rating = Integer.parseInt(rating);
-        }else {
+        } else {
             this.rating = 0;
         }
     }
@@ -86,9 +87,9 @@ public class Forecast {
     }
 
     public void setSeaHeight(String seaHeight) {
-        if (isNumeric(seaHeight)){
+        if (isNumeric(seaHeight)) {
             this.seaHeight = Double.parseDouble(seaHeight);
-        }else {
+        } else {
             this.seaHeight = 0;
         }
     }
@@ -98,9 +99,9 @@ public class Forecast {
     }
 
     public void setSwellHeight(String swellHeight) {
-        if (isNumeric(swellHeight)){
+        if (isNumeric(swellHeight)) {
             this.swellHeight = Double.parseDouble(swellHeight);
-        }else {
+        } else {
             this.swellHeight = 0;
         }
     }
@@ -110,9 +111,9 @@ public class Forecast {
     }
 
     public void setChopHeight(String chopHeight) {
-        if (isNumeric(chopHeight)){
+        if (isNumeric(chopHeight)) {
             this.chopHeight = Double.parseDouble(chopHeight);
-        }else {
+        } else {
             this.chopHeight = 0;
         }
     }
@@ -122,11 +123,11 @@ public class Forecast {
     }
 
     public void setPeriod(String period) {
-        if (isNumeric(period)){
+        if (isNumeric(period)) {
             this.period = Integer.parseInt(period);
         } else {
             this.period = 0;
-        }    
+        }
     }
 
     public String getSwellDirection() {
@@ -158,11 +159,11 @@ public class Forecast {
     }
 
     public void setWindSpeed(String windSpeed) {
-        if (isNumeric(windSpeed)){
+        if (isNumeric(windSpeed)) {
             this.windSpeed = Integer.parseInt(windSpeed);
         } else {
             this.windSpeed = 0;
-        } 
+        }
     }
 
     public int getGust() {
@@ -170,61 +171,53 @@ public class Forecast {
     }
 
     public void setGust(String gust) {
-        if (isNumeric(gust)){
+        if (isNumeric(gust)) {
             this.gust = Integer.parseInt(gust);
         } else {
             this.gust = 0;
-        }     
+        }
     }
 
-    public void setWindInformation(String windInfo){
-        String [] data = windInfo.split(":");
+    public void setWindInformation(String windInfo) {
+        String[] data = windInfo.split(":");
         setWindDirection(data[0]);
         setWindSpeed(data[1]);
     }
 
     @Override
     public String toString() {
-        return "Region: " + this.getRegion()
-        + "\nLoaction: " + this.getLocation()
-        + "\nTime: " + this.getTime() 
-        + "\nRating: " + this.getRating()
-        + "\nSummary: " + this.getSummary()
-        + "\nSea Height: " + this.getSeaHeight()
-        + "\nSwell Height: " + this.getSwellHeight()
-        + "\nChop Height: " + this.getChopHeight()
-        + "\nPeriod: " + this.getPeriod()
-        + "\nSwell Direction: " + this.getSwellDirection()
-        + "\nSea Direction: " + this.getSeaDirection()
-        + "\nWind Direction: " + this.getWindDirection()
-        + "\nWind Speed: " + this.getWindSpeed()
-        + "\nGusts: " + this.getGust();
+        return "Region: " + this.getRegion() + "\nLoaction: " + this.getLocation() + "\nTime: " + this.getTime()
+                + "\nRating: " + this.getRating() + "\nSummary: " + this.getSummary() + "\nSea Height: "
+                + this.getSeaHeight() + "\nSwell Height: " + this.getSwellHeight() + "\nChop Height: "
+                + this.getChopHeight() + "\nPeriod: " + this.getPeriod() + "\nSwell Direction: "
+                + this.getSwellDirection() + "\nSea Direction: " + this.getSeaDirection() + "\nWind Direction: "
+                + this.getWindDirection() + "\nWind Speed: " + this.getWindSpeed() + "\nGusts: " + this.getGust();
 
     }
 
-    private static boolean isNumeric(String str) { 
-        if (canBeConvertedToDouble(str) || canBeConvertedToInt(str)){
+    private static boolean isNumeric(String str) {
+        if (canBeConvertedToDouble(str) || canBeConvertedToInt(str)) {
             return true;
-        }else {
+        } else {
             return false;
         }
-      }
+    }
 
-      private static boolean canBeConvertedToDouble(String str) { 
-        try {  
-          Double.parseDouble(str);  
-          return true;
-        } catch(NumberFormatException e){  
-          return false;  
-        }  
-      }
+    private static boolean canBeConvertedToDouble(String str) {
+        try {
+            Double.parseDouble(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
 
-       private static boolean canBeConvertedToInt(String str) { 
-        try {  
-          Integer.parseInt(str);  
-          return true;
-        } catch(NumberFormatException e){  
-          return false;  
-        }  
-      }
+    private static boolean canBeConvertedToInt(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
 }

@@ -7,18 +7,19 @@ public class Region {
     private String name;
     private ArrayList<String> locations;
 
-    public Region (String name, ArrayList<String> locations){
+    public Region(String name, ArrayList<String> locations) {
         this.locations = locations;
         this.name = name;
     }
-
 
     public void setName(String name) {
         this.name = name;
     }
+
     public void setLocations(ArrayList<String> locations) {
         this.locations = locations;
     }
+
     public ArrayList<String> getLocations() {
         return this.locations;
     }
