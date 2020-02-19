@@ -1,9 +1,11 @@
 package Hello;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import org.json.simple.parser.ParseException;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -16,6 +18,7 @@ public class Controller {
     private Database database;
     ArrayList<String> locations;
     ArrayList<String> rows;
+    ArrayList<Region> regions;
 
     public Controller() {
         this.connection = new Connection();
@@ -23,45 +26,46 @@ public class Controller {
         this.dateFetcher = new DateFetcher();
         this.rowsSelector = new RowsSelector();
         this.database = new Database();
+        this.regions = new ArrayList<Region>();
         this.locations = new ArrayList<String>();
         this.rows = new ArrayList<String>();
     }
 
-    public void runApp() {
-        try {
-            String dateTimeNow = dateFetcher.getTodaysDateTime();
-            this.rows = this.rowsSelector.rowsSelector(dateTimeNow);
-            this.locations = dataFetcher.fetchLocations();
-            if (rows.isEmpty()) {
-                System.out.println("No data to collect");
-            } else {
-                for (String location : locations) {
+    public void runApp() throws IOException, ParseException {
+        //String dateTimeNow = dateFetcher.getTodaysDateTime();
+        String dateTimeNow = "Wed 14:00:00";
+        this.rows = this.rowsSelector.rowsSelector(dateTimeNow);
+        this.regions = this.dataFetcher.fetchLocations();
+        if (rows.isEmpty()) {
+            System.out.println("No data to collect");
+        } else {
+            for (Region region : this.regions) {
+                for (String location : region.getLocations()) {
                     Document document = this.connection.connect(location);
                     for (String row : rows) {
                         Elements element = document.getElementsByClass(row);
                         String summary = getSummary(element);
-                        Forecast forecast = extractForecast(element, location, summary);
+                        String regionName = region.getName();
+                        Forecast forecast = extractForecast(element, location, summary, regionName);
+                        System.out.println(forecast);
                         this.database.sendToDatabase(forecast);
                     }
                 }
             }
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         }
     }
 
     private String getSummary(Elements element) {
-        Element summaryElement = element.select(".wx-summary").first();               
+        Element summaryElement = element.select(".wx-summary").first();
         String summary = summaryElement.attr("title");
         return summary;
     }
 
-    private Forecast extractForecast(Elements element, String location, String summary) {
+    private Forecast extractForecast(Elements element, String location, String summary, String region) {
         String text = element.text();
         String[] textArray = text.split(" ");
-        System.out.println(Arrays.toString(textArray));
         Forecast forecast = new Forecast();
+        forecast.setRegion(region);
         forecast.setLocation(location);
         forecast.setTime(textArray[0]);
         forecast.setRating(textArray[1]);
@@ -74,7 +78,6 @@ public class Controller {
         forecast.setWindInformation(textArray[8]);
         forecast.setGust(textArray[9]);
         forecast.setSummary(summary);
-        System.out.println(forecast);
         return forecast;
     }
 

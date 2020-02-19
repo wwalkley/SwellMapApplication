@@ -1,6 +1,7 @@
 package Hello;
 
 public class Forecast {
+    private String region;
     private String location;
     private String time;
     private int rating;
@@ -18,8 +19,9 @@ public class Forecast {
     public Forecast() {
     }
 
-    public Forecast(String location, String time, int rating, String summary, double seaHeight, double swellHeight,
+    public Forecast(String region, String location, String time, int rating, String summary, double seaHeight, double swellHeight,
             double chopHeight, int period, String swellDirection, String seaDirection, String windDirection, int windSpeed, int gust) {
+        this.region = region;
         this.location = location;
         this.time = time;
         this.rating = rating;
@@ -33,6 +35,14 @@ public class Forecast {
         this.windDirection = windDirection;
         this.windSpeed = windSpeed;
         this.gust = gust;
+    }
+
+    public String getRegion(){
+        return this.region;
+    }
+
+    public String setRegion(String region){
+        return this.region = region;
     }
 
     public String getLocation() {
@@ -175,7 +185,8 @@ public class Forecast {
 
     @Override
     public String toString() {
-        return "Loaction: " + this.getLocation()
+        return "Region: " + this.getRegion()
+        + "\nLoaction: " + this.getLocation()
         + "\nTime: " + this.getTime() 
         + "\nRating: " + this.getRating()
         + "\nSummary: " + this.getSummary()

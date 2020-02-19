@@ -1,0 +1,53 @@
+{
+    "Regions": [
+        {
+            "Name": "Auckland East Coast",
+            "Locations": [
+                "west-waimate-channel",
+                "waiheke-channel",
+                "the-noises",
+                "the-needles",
+                "te-arai-point",
+                "takatu-point",
+                "simpsons-rock",
+                "shag-rock",
+                "sail-rock",
+                "musick-point",
+                "motuora-island",
+                "motukawao-island",
+                "miners-reef",
+                "mcgregors-rock",
+                "kawau-point",
+                "jellicoe-channel",
+                "inner-gulf",
+                "horn-rock",
+                "hen-and-chickens",
+                "grouper-rock",
+                "firth-of-thames",
+                "durville-rocks",
+                "deep-hole",
+                "deep-foul",
+                "channel-island",
+                "cape-rodney",
+                "bream-head",
+                "anchorite-rock",
+                "3-mile-reef",
+                "19m-foul",
+                "mangawhai-heads"
+            ]
+        },
+        {
+            "Name": "Auckland West Coast",
+            "Locations": [
+                "waikato-shelf-break",
+                "waikato-river-mouth",
+                "manukau-harbour-entrance",
+                "waikato",
+                "manukau-shelf-break",
+                "manukau",
+                "kaipara-shelf-break",
+                "kaipara-entrance"          
+            ]
+        }
+    ]
+}
