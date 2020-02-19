@@ -13,6 +13,7 @@ public class Controller {
     private DataFetch dataFetcher;
     private DateFetcher dateFetcher;
     private RowsSelector rowsSelector;
+    private Database database;
     ArrayList<String> locations;
     ArrayList<String> rows;
 
@@ -21,6 +22,7 @@ public class Controller {
         this.dataFetcher = new DataFetch();
         this.dateFetcher = new DateFetcher();
         this.rowsSelector = new RowsSelector();
+        this.database = new Database();
         this.locations = new ArrayList<String>();
         this.rows = new ArrayList<String>();
     }
@@ -37,7 +39,9 @@ public class Controller {
                     Document document = this.connection.connect(location);
                     for (String row : rows) {
                         Elements element = document.getElementsByClass(row);
-                        Forecast forecast = extractForecast(element, location);
+                        String summary = getSummary(element);
+                        Forecast forecast = extractForecast(element, location, summary);
+                        this.database.sendToDatabase(forecast);
                     }
                 }
             }
@@ -47,8 +51,13 @@ public class Controller {
         }
     }
 
+    private String getSummary(Elements element) {
+        Element summaryElement = element.select(".wx-summary").first();               
+        String summary = summaryElement.attr("title");
+        return summary;
+    }
 
-    private Forecast extractForecast(Elements element, String location) {
+    private Forecast extractForecast(Elements element, String location, String summary) {
         String text = element.text();
         String[] textArray = text.split(" ");
         System.out.println(Arrays.toString(textArray));
@@ -64,6 +73,7 @@ public class Controller {
         forecast.setSeaDirection(textArray[7]);
         forecast.setWindInformation(textArray[8]);
         forecast.setGust(textArray[9]);
+        forecast.setSummary(summary);
         System.out.println(forecast);
         return forecast;
     }

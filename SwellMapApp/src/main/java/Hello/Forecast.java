@@ -175,7 +175,7 @@ public class Forecast {
 
     @Override
     public String toString() {
-        return "Loaction:" + this.getLocation()
+        return "Loaction: " + this.getLocation()
         + "\nTime: " + this.getTime() 
         + "\nRating: " + this.getRating()
         + "\nSummary: " + this.getSummary()
