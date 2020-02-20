@@ -1,3 +1,5 @@
+package Hello;
+
 import java.sql.*;
 
 public class CreateTable {

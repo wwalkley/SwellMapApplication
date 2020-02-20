@@ -45,7 +45,7 @@ public class Controller {
                         String regionName = region.getName();
                         Forecast forecast = extractForecast(element, location, summary, regionName);
                         System.out.println(forecast);
-                        this.database.sendToDatabase(forecast);
+                        this.database.insert(forecast);
                     }
                 }
             }
