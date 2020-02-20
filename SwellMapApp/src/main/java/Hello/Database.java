@@ -9,14 +9,15 @@ public class Database {
         Statement stmt = null;
         try {
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:database.db");
+            System.out.println("yo");
+            c = DriverManager.getConnection("jdbc:sqlite:src/main/resources/database.db");
             c.setAutoCommit(false);
             System.out.println("Opened database successfully");
 
             stmt = c.createStatement();
             String sql = "INSERT INTO forecasts (REGION,LOCATION,DATE,TIME,RATING,SUMMARY,SEA_HEIGHT,SWELL_HEIGHT,CHOP_HEIGHT,PERIOD,SWELL_DIRECTION,SEA_DIRECTION,WIND_DIRECTION,WIND_SPEED,GUST) "
                     + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
-            
+
             PreparedStatement pstmt = c.prepareStatement(sql);
             pstmt.setString(1, forecast.getRegion());
             pstmt.setString(2, forecast.getLocation());

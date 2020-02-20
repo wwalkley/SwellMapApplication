@@ -1,5 +1,6 @@
 package Hello;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -48,8 +49,8 @@ public class DataFetch {
     }
 
     private JSONObject getFileAsJSONObject() throws IOException, ParseException, FileNotFoundException {
-        JSONParser jsonParser = new JSONParser();
-        Object obj = jsonParser.parse(new FileReader("SwellMapApp/locations.json"));
+        JSONParser jsonParser = new JSONParser();     
+        Object obj = jsonParser.parse(new FileReader("src/main/resources/locations.json"));
         JSONObject jsonObject = (JSONObject) obj;
         return jsonObject;
     }
