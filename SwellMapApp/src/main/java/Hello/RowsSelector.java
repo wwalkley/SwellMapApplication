@@ -6,16 +6,19 @@ public class RowsSelector {
 
     private ArrayList<String> rows;
     private ArrayList<String> hours;
+    private DateFetcher dateFetcher;
 
     public RowsSelector() {
         this.rows = new ArrayList<String>();
         this.hours = new ArrayList<String>();
+        this.dateFetcher = new DateFetcher();
     }
 
-    public ArrayList<String> rowsSelector(String date) {
-        whichHoursToSelect(date);
+    public ArrayList<String> rowsSelector() {
+        String dateTimeNow = dateFetcher.getTodaysDateForRowSelector();
+        whichHoursToSelect(dateTimeNow);
         for (String hour : this.hours) {
-            this.rows.add(getAbbreviation(date, hour));
+            this.rows.add(getAbbreviation(dateTimeNow, hour));
         }
         return this.rows;
     }

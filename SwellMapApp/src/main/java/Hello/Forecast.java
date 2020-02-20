@@ -3,6 +3,7 @@ package Hello;
 public class Forecast {
     private String region;
     private String location;
+    private String date;
     private String time;
     private int rating;
     private String summary;
@@ -19,11 +20,12 @@ public class Forecast {
     public Forecast() {
     }
 
-    public Forecast(String region, String location, String time, int rating, String summary, double seaHeight,
+    public Forecast(String region, String location, String date,  String time, int rating, String summary, double seaHeight,
             double swellHeight, double chopHeight, int period, String swellDirection, String seaDirection,
             String windDirection, int windSpeed, int gust) {
         this.region = region;
         this.location = location;
+        this.date = date;
         this.time = time;
         this.rating = rating;
         this.summary = summary;
@@ -36,6 +38,14 @@ public class Forecast {
         this.windDirection = windDirection;
         this.windSpeed = windSpeed;
         this.gust = gust;
+    }
+
+    public String getDate() {
+        return this.date;
+    }
+
+    public String setDate(String date) {
+        return this.date = date;
     }
 
     public String getRegion() {

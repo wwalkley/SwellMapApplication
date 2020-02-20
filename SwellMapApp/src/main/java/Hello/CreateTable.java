@@ -17,6 +17,7 @@ public class CreateTable {
          String sql = "CREATE TABLE forecasts " 
                + "(REGION TEXT NOT NULL," 
                + " LOCATION TEXT NOT NULL, "
+               + " DATE TEXT NOT NULL, "
                + " TIME TEXT NOT NULL, " 
                + " RATING INT NOT NULL, " 
                + " SUMMARY TEXT NOT NULL,"

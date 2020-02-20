@@ -6,14 +6,25 @@ import java.text.SimpleDateFormat;
 
 public class DateFetcher {
 
-    public String getTodaysDateTime() {
+    public String getTodaysDateForRowSelector() {
+        DateFormat dateFormat = setDateFormatForRowSelector();
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
+
+    public String getTodaysDate(){
         DateFormat dateFormat = setDateFormat();
         Date date = new Date();
         return dateFormat.format(date);
     }
 
-    private DateFormat setDateFormat() {
+    private DateFormat setDateFormatForRowSelector() {
         DateFormat dateFormat = new SimpleDateFormat("EEE HH:mm:ss");
+        return dateFormat;
+    }
+
+    private DateFormat setDateFormat() {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         return dateFormat;
     }
 }

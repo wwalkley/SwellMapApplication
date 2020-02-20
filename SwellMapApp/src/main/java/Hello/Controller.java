@@ -30,8 +30,7 @@ public class Controller {
     }
 
     public void runApp() throws IOException, ParseException {
-        String dateTimeNow = dateFetcher.getTodaysDateTime();
-        this.rows = this.rowsSelector.rowsSelector(dateTimeNow);
+        this.rows = this.rowsSelector.rowsSelector();
         this.regions = this.dataFetcher.fetchLocations();
         if (rows.isEmpty()) {
             System.out.println("No data to collect");
@@ -43,7 +42,8 @@ public class Controller {
                         Elements element = document.getElementsByClass(row);
                         String summary = getSummary(element);
                         String regionName = region.getName();
-                        Forecast forecast = extractForecast(element, location, summary, regionName);
+                        String date = this.dateFetcher.getTodaysDate();
+                        Forecast forecast = extractForecast(element, location, summary, regionName, date);
                         System.out.println(forecast);
                         this.database.insert(forecast);
                     }
@@ -58,12 +58,13 @@ public class Controller {
         return summary;
     }
 
-    private Forecast extractForecast(Elements element, String location, String summary, String region) {
+    private Forecast extractForecast(Elements element, String location, String summary, String region, String date) {
         String text = element.text();
         String[] textArray = text.split(" ");
         Forecast forecast = new Forecast();
         forecast.setRegion(region);
         forecast.setLocation(location);
+        forecast.setDate(date);
         forecast.setTime(textArray[0]);
         forecast.setRating(textArray[1]);
         forecast.setSeaHeight(textArray[2]);

@@ -1,5 +1,6 @@
 package Hello;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,15 +14,13 @@ public class DataFetch {
 
     public ArrayList<Region> fetchLocations() throws IOException, ParseException {
         ArrayList<Region> regions = new ArrayList<Region>();
-        JSONParser jsonParser = new JSONParser();
-        Object obj = jsonParser.parse(new FileReader("SwellMapApp/locations.json"));
-        JSONObject jsonObject = (JSONObject) obj;
-        JSONArray regionsJsonArray = (JSONArray) jsonObject.get("Regions");
+        JSONObject file = getFileAsJSONObject();
+        JSONArray regionsJsonArray = getRegions(file);
         for (int i = 0; i < regionsJsonArray.size(); i++) {
             ArrayList<String> locations = new ArrayList<String>();
             JSONObject region = (JSONObject) regionsJsonArray.get(i);
-            String regionName = (String) region.get("Name");
-            JSONArray locationsJsonArray = (JSONArray) region.get("Locations");
+            String regionName = getRegionName(region);
+            JSONArray locationsJsonArray = getLocations(region);
             for (int j = 0; j < locationsJsonArray.size(); j++) {
                 String locationName = (String) locationsJsonArray.get(j);
                 locations.add(locationName);
@@ -31,6 +30,28 @@ public class DataFetch {
         }
         return regions;
 
+    }
+
+    private JSONArray getLocations(JSONObject region) {
+        JSONArray locationsJsonArray = (JSONArray) region.get("Locations");
+        return locationsJsonArray;
+    }
+
+    private String getRegionName(JSONObject region) {
+        String regionName = (String) region.get("Name");
+        return regionName;
+    }
+
+    private JSONArray getRegions(JSONObject file) {
+        JSONArray regionsJsonArray = (JSONArray) file.get("Regions");
+        return regionsJsonArray;
+    }
+
+    private JSONObject getFileAsJSONObject() throws IOException, ParseException, FileNotFoundException {
+        JSONParser jsonParser = new JSONParser();
+        Object obj = jsonParser.parse(new FileReader("SwellMapApp/locations.json"));
+        JSONObject jsonObject = (JSONObject) obj;
+        return jsonObject;
     }
 
 }
