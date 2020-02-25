@@ -1,0 +1,15 @@
+#maven specific
+/target/
+
+#netbeans specific
+/nbproject/
+nbactions*.xml
+*.tmp
+
+#eclipse specific
+.project
+.classpath
+/.settings/
+
+#vsstudio specific
+/.vscode/
