@@ -1,4 +1,4 @@
-package Hello;
+package app.swellmap;
 
 public class Forecast {
     private String region;

@@ -1,4 +1,4 @@
-package Hello;
+package app.swellmap;
 
 import java.io.IOException;
 import java.util.ArrayList;

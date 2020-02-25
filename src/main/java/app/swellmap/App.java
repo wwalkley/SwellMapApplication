@@ -1,7 +1,7 @@
-package Hello;
+package app.swellmap;
 
 import java.io.IOException;
-import Hello.ControlApp;
+import app.swellmap.ControlApp;
 
 import org.json.simple.parser.ParseException;
 

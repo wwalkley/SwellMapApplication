@@ -1,4 +1,4 @@
-package Hello;
+package app.swellmap;
 
 import java.util.Date;
 import java.text.DateFormat;
