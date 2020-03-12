@@ -1,0 +1,7 @@
+{
+    "name": "Swellmap App",
+    "locationsPath": "../src/test/resources/locations.json",
+    "db": {
+        "path": "../src/test/resources/database.db"
+    }
+}

@@ -8,9 +8,9 @@ public class Database {
         Connection c = null;
         Statement stmt = null;
         try {
+            
             Class.forName("org.sqlite.JDBC");
-            System.out.println("yo");
-            c = DriverManager.getConnection("jdbc:sqlite:src/main/resources/database.db");
+            c = DriverManager.getConnection(String.format("jdbc:sqlite:src/main/resources/database.db", ConfigHandler.getInstance().getDbPath()));
             c.setAutoCommit(false);
             System.out.println("Opened database successfully");
 
