@@ -49,7 +49,7 @@ public class DataFetch {
 
     private JSONObject getFileAsJSONObject() throws IOException, ParseException, FileNotFoundException {
         JSONParser jsonParser = new JSONParser();     
-        Object obj = jsonParser.parse(new FileReader("src/main/resources/locations.json"));
+        Object obj = jsonParser.parse(new FileReader(ConfigHandler.getInstance().getLocations()));
         JSONObject jsonObject = (JSONObject) obj;
         return jsonObject;
     }
