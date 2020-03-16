@@ -14,23 +14,19 @@ public class DataFetch {
 
     public ArrayList<Region> fetchLocations() throws IOException, ParseException {
         ArrayList<Region> regions = new ArrayList<Region>();
-        JSONObject file = getFileAsJSONObject();
-        JSONArray regionsJsonArray = getRegions(file);
-        for (int i = 0; i < regionsJsonArray.size(); i++) {
-            ArrayList<String> locations = new ArrayList<String>();
-            JSONObject region = (JSONObject) regionsJsonArray.get(i);
-            String regionName = getRegionName(region);
-            JSONArray locationsJsonArray = getLocations(region);
-            
-            for (int j = 0; j < locationsJsonArray.size(); j++) {
-                String locationName = (String) locationsJsonArray.get(j);
-                locations.add(locationName);
-            }
-            Region regionObject = new Region(regionName, locations);
+        JSONObject locationsFileJson = getFileAsJSONObject();
+        JSONArray regionsJsonArray = getRegions(locationsFileJson);
+        regionsJsonArray.forEach(r -> {
+            String regionName = getRegionName((JSONObject) r);
+            JSONArray regionLocationsArray = getLocations((JSONObject) r);
+            final ArrayList<String> regionLocations = new ArrayList<>();
+            regionLocationsArray.forEach(l -> {
+                regionLocations.add(l.toString());
+            });
+            Region regionObject = new Region(regionName, regionLocations);
             regions.add(regionObject);
-        }
+        });
         return regions;
-
     }
 
     private JSONArray getLocations(JSONObject region) {
@@ -49,7 +45,7 @@ public class DataFetch {
     }
 
     private JSONObject getFileAsJSONObject() throws IOException, ParseException, FileNotFoundException {
-        JSONParser jsonParser = new JSONParser();     
+        JSONParser jsonParser = new JSONParser();
         Object obj = jsonParser.parse(new FileReader(ConfigHandler.getInstance().getLocations()));
         JSONObject jsonObject = (JSONObject) obj;
         return jsonObject;

@@ -9,11 +9,11 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class ControlApp {
-    private JSOUPConnection connection;
-    private DataFetch dataFetcher;
-    private DateFetcher dateFetcher;
-    private RowsSelector rowsSelector;
-    private Database database;
+    final private JSOUPConnection connection;
+    final private DataFetch dataFetcher;
+    final private DateFetcher dateFetcher;
+    final private RowsSelector rowsSelector;
+    final private Database database;
     ArrayList<String> locations;
     ArrayList<String> rows;
     ArrayList<Region> regions;
@@ -24,9 +24,9 @@ public class ControlApp {
         this.dateFetcher = new DateFetcher();
         this.rowsSelector = new RowsSelector();
         this.database = new Database();
-        this.regions = new ArrayList<Region>();
-        this.locations = new ArrayList<String>();
-        this.rows = new ArrayList<String>();
+        this.regions = new ArrayList<>();
+        this.locations = new ArrayList<>();
+        this.rows = new ArrayList<>();
     }
 
     public void runApp() throws IOException, ParseException {

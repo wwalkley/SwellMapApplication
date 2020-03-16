@@ -36,7 +36,7 @@ public class Database {
 
             pstmt.executeUpdate();
 
-            System.out.println(String.format("Inserted record for [%s] in region [%s]", forecast.getLocation(), forecast.getRegion()));
+            System.out.println(String.format("Inserted record for [%s] [%s] [%s]", forecast.getRegion(), forecast.getLocation(), forecast.getTime()));
             
             stmt.close();
             c.commit();
