@@ -40,12 +40,36 @@ public class ConfigHandler {
     public String getName() {
         return config.get("name").toString();
     }
+    
+    private JSONObject getDb() {
+        return getJSONObject("db");
+    }
 
     public String getDbPath() {
-        return getJSONObject("db").get("path").toString();
+        return getDb().get("path").toString();
     }
 
     public String getLocations() {
         return config.get("locationsPath").toString();
+    }
+    
+    private JSONObject getHttp() {
+        return getJSONObject("http");
+    }
+    
+    private JSONObject getProxy() {
+        return (JSONObject) getHttp().get("proxy");
+    }
+    
+    public boolean getProxyEnabled() {
+        return Boolean.parseBoolean(getProxy().get("enabled").toString());
+    }
+    
+    public String getProxyHost() {
+        return getProxy().get("host").toString();
+    }
+    
+    public int getProxyPort() {
+        return Integer.parseInt(getProxy().get("port").toString());
     }
 }

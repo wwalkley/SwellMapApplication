@@ -9,11 +9,12 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class ControlApp {
-    private JSOUPConnection connection;
-    private DataFetch dataFetcher;
-    private DateFetcher dateFetcher;
-    private RowsSelector rowsSelector;
-    private Database database;
+
+    final private JSOUPConnection connection;
+    final private DataFetch dataFetcher;
+    final private DateFetcher dateFetcher;
+    final private RowsSelector rowsSelector;
+    final private Database database;
     ArrayList<String> locations;
     ArrayList<String> rows;
     ArrayList<Region> regions;
@@ -24,16 +25,14 @@ public class ControlApp {
         this.dateFetcher = new DateFetcher();
         this.rowsSelector = new RowsSelector();
         this.database = new Database();
-        this.regions = new ArrayList<Region>();
-        this.locations = new ArrayList<String>();
-        this.rows = new ArrayList<String>();
+        this.regions = new ArrayList<>();
+        this.locations = new ArrayList<>();
+        this.rows = new ArrayList<>();
     }
 
     public void runApp() throws IOException, ParseException {
         this.rows = this.rowsSelector.rowsSelector();
-        System.out.println("running");
         this.regions = this.dataFetcher.fetchLocations();
-        System.out.println("running");
         if (rows.isEmpty()) {
             System.out.println("No data to collect");
         } else {
@@ -41,12 +40,16 @@ public class ControlApp {
                 for (String location : region.getLocations()) {
                     Document document = this.connection.connect(location);
                     for (String row : rows) {
-                        Elements element = document.getElementsByClass(row);
-                        String summary = getSummary(element);
-                        String regionName = region.getName();
-                        String date = this.dateFetcher.getTodaysDate();
-                        Forecast forecast = extractForecast(element, location, summary, regionName, date);
-                        this.database.insert(forecast);
+                        try {
+                            Elements element = document.getElementsByClass(row);
+                            String summary = getSummary(element);
+                            String regionName = region.getName();
+                            String date = this.dateFetcher.getTodaysDate();
+                            Forecast forecast = extractForecast(element, location, summary, regionName, date);
+                            this.database.insert(forecast);
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                        }
                     }
                 }
             }

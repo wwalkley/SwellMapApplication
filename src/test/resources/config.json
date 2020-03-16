@@ -3,5 +3,12 @@
     "locationsPath": "../src/test/resources/locations.json",
     "db": {
         "path": "../src/test/resources/database.db"
+    },
+    "http": {
+        "proxy": {
+            "enabled": true,
+            "host": "auksquid2",
+            "port": 3128
+        }
     }
 }

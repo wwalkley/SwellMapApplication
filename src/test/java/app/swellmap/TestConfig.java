@@ -29,4 +29,24 @@ public class TestConfig extends TestCase {
             fail(e.getMessage());
         }
     }
+    
+    public void testProxyHost() {
+        try {
+            ConfigHandler conf = ConfigHandler.getInstance();
+            String proxyHost = conf.getProxyHost();
+            assertEquals(proxyHost, "auksquid2");
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+    
+    public void testProxyPort() {
+        try {
+            ConfigHandler conf = ConfigHandler.getInstance();
+            int proxyPort = conf.getProxyPort();
+            assertEquals(3128, proxyPort);
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
 }

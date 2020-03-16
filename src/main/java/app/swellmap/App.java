@@ -16,7 +16,6 @@ public class App {
         ConfigHandler.setConfigPath(args[1]);
         ControlApp contoller = new ControlApp();
         contoller.runApp();
-        System.out.println("running");
     }
 
     private static void validateArgs(String[] args) throws IOException {
