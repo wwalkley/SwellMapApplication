@@ -8,11 +8,10 @@ public class Database {
         Connection c = null;
         Statement stmt = null;
         try {
-            
+            String dbPath = ConfigHandler.getInstance().getDbPath();
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection(String.format("jdbc:sqlite:src/main/resources/database.db", ConfigHandler.getInstance().getDbPath()));
+            c = DriverManager.getConnection(String.format("jdbc:sqlite:%s", dbPath));
             c.setAutoCommit(false);
-            System.out.println("Opened database successfully");
 
             stmt = c.createStatement();
             String sql = "INSERT INTO forecasts (REGION,LOCATION,DATE,TIME,RATING,SUMMARY,SEA_HEIGHT,SWELL_HEIGHT,CHOP_HEIGHT,PERIOD,SWELL_DIRECTION,SEA_DIRECTION,WIND_DIRECTION,WIND_SPEED,GUST) "
@@ -35,16 +34,15 @@ public class Database {
             pstmt.setInt(14, forecast.getWindSpeed());
             pstmt.setInt(15, forecast.getGust());
 
-            System.out.println(sql);
             pstmt.executeUpdate();
 
+            System.out.println(String.format("Inserted record for [%s] in region [%s]", forecast.getLocation(), forecast.getRegion()));
+            
             stmt.close();
             c.commit();
             c.close();
         } catch (Exception e) {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
+            e.printStackTrace();
         }
-        System.out.println("Records created successfully");
     }
 }

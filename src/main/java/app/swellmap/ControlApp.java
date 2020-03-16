@@ -31,9 +31,7 @@ public class ControlApp {
 
     public void runApp() throws IOException, ParseException {
         this.rows = this.rowsSelector.rowsSelector();
-        System.out.println("running");
         this.regions = this.dataFetcher.fetchLocations();
-        System.out.println("running");
         if (rows.isEmpty()) {
             System.out.println("No data to collect");
         } else {

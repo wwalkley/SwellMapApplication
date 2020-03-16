@@ -21,6 +21,7 @@ public class DataFetch {
             JSONObject region = (JSONObject) regionsJsonArray.get(i);
             String regionName = getRegionName(region);
             JSONArray locationsJsonArray = getLocations(region);
+            
             for (int j = 0; j < locationsJsonArray.size(); j++) {
                 String locationName = (String) locationsJsonArray.get(j);
                 locations.add(locationName);
