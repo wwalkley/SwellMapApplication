@@ -5,19 +5,12 @@ import java.sql.*;
 public class Database {
 
     public void insert(Forecast forecast) {
-        Connection c = null;
-        Statement stmt = null;
         try {
-            String dbPath = ConfigHandler.getInstance().getDbPath();
-            Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection(String.format("jdbc:sqlite:%s", dbPath));
-            c.setAutoCommit(false);
-
-            stmt = c.createStatement();
+            ConnectionHandler connHandler = ConnectionHandler.getInstance();
+            Statement stmt = connHandler.getConnection().createStatement();
             String sql = "INSERT INTO forecasts (REGION,LOCATION,DATE,TIME,RATING,SUMMARY,SEA_HEIGHT,SWELL_HEIGHT,CHOP_HEIGHT,PERIOD,SWELL_DIRECTION,SEA_DIRECTION,WIND_DIRECTION,WIND_SPEED,GUST) "
                     + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
-
-            PreparedStatement pstmt = c.prepareStatement(sql);
+            PreparedStatement pstmt = connHandler.getConnection().prepareStatement(sql);
             pstmt.setString(1, forecast.getRegion());
             pstmt.setString(2, forecast.getLocation());
             pstmt.setString(3, forecast.getDate());
@@ -33,14 +26,9 @@ public class Database {
             pstmt.setString(13, forecast.getWindDirection());
             pstmt.setInt(14, forecast.getWindSpeed());
             pstmt.setInt(15, forecast.getGust());
-
             pstmt.executeUpdate();
-
             System.out.println(String.format("Inserted record for [%s] [%s] [%s]", forecast.getRegion(), forecast.getLocation(), forecast.getTime()));
-            
             stmt.close();
-            c.commit();
-            c.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
