@@ -9,6 +9,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class ControlApp {
+
     final private JSOUPConnection connection;
     final private DataFetch dataFetcher;
     final private DateFetcher dateFetcher;
@@ -39,12 +40,16 @@ public class ControlApp {
                 for (String location : region.getLocations()) {
                     Document document = this.connection.connect(location);
                     for (String row : rows) {
-                        Elements element = document.getElementsByClass(row);
-                        String summary = getSummary(element);
-                        String regionName = region.getName();
-                        String date = this.dateFetcher.getTodaysDate();
-                        Forecast forecast = extractForecast(element, location, summary, regionName, date);
-                        this.database.insert(forecast);
+                        try {
+                            Elements element = document.getElementsByClass(row);
+                            String summary = getSummary(element);
+                            String regionName = region.getName();
+                            String date = this.dateFetcher.getTodaysDate();
+                            Forecast forecast = extractForecast(element, location, summary, regionName, date);
+                            this.database.insert(forecast);
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                        }
                     }
                 }
             }

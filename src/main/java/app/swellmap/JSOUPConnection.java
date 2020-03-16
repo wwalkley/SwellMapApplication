@@ -15,10 +15,12 @@ public class JSOUPConnection {
             final int proxyPort = conf.getProxyPort();
             return Jsoup.connect("http://www.swellmap.com/boating/new-zealand/" + location)
                     .proxy(proxyHost, proxyPort)
-                    .userAgent("")
+                    .userAgent(RandomUserAgent.getRandomUserAgent())
                     .get();
         } else {
-            return Jsoup.connect("http://www.swellmap.com/boating/new-zealand/" + location).get();
+            return Jsoup.connect("http://www.swellmap.com/boating/new-zealand/" + location)
+                    .userAgent(RandomUserAgent.getRandomUserAgent())
+                    .get();
         }
     }
 }
