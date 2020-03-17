@@ -1,5 +1,6 @@
 package app.swellmap;
 
+import app.swellmap.handlers.ConfigHandler;
 import java.io.IOException;
 
 import org.json.simple.parser.ParseException;
@@ -29,9 +30,5 @@ public class App {
         if (!args[0].toString().equals("--conf")) {
             throw new IOException("Invalid arguments passed. Expecting --conf and got " + args[0]);
         }
-    }
-
-    private static String getPathToConf(String[] args) {
-        return args[1];
     }
 }

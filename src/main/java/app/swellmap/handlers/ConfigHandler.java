@@ -1,4 +1,4 @@
-package app.swellmap;
+package app.swellmap.handlers;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;

@@ -1,4 +1,4 @@
-package app.swellmap;
+package app.swellmap.helpers;
 
 import java.util.HashMap;
 import java.util.Map;

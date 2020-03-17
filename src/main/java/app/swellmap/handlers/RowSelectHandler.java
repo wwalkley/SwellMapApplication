@@ -1,17 +1,18 @@
-package app.swellmap;
+package app.swellmap.handlers;
 
+import app.swellmap.helpers.DateHelper;
 import java.util.ArrayList;
 
-public class RowsSelector {
+public class RowSelectHandler {
 
     private ArrayList<String> rows;
     private ArrayList<String> hours;
-    private DateFetcher dateFetcher;
+    private DateHelper dateFetcher;
 
-    public RowsSelector() {
+    public RowSelectHandler() {
         this.rows = new ArrayList<String>();
         this.hours = new ArrayList<String>();
-        this.dateFetcher = new DateFetcher();
+        this.dateFetcher = new DateHelper();
     }
 
     public ArrayList<String> rowsSelector() {

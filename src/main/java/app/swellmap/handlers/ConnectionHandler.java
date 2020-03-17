@@ -1,5 +1,6 @@
-package app.swellmap;
+package app.swellmap.handlers;
 
+import app.swellmap.handlers.ConfigHandler;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
