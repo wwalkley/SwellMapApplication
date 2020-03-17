@@ -15,7 +15,11 @@ public class App {
         validateArgs(args);
         ConfigHandler.setConfigPath(args[1]);
         ControlApp contoller = new ControlApp();
-        contoller.runApp();
+        try {
+            contoller.runApp();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private static void validateArgs(String[] args) throws IOException {

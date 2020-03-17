@@ -8,7 +8,7 @@ import org.jsoup.nodes.Document;
 
 public class JSOUPConnection {
 
-    public Document connect(String location) throws ParseException, FileNotFoundException, IOException {
+    public Document get(String location) throws ParseException, FileNotFoundException, IOException {
         ConfigHandler conf = ConfigHandler.getInstance();
         if (conf.getProxyEnabled()) {
             final String proxyHost = conf.getProxyHost();

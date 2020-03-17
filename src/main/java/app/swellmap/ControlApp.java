@@ -2,6 +2,8 @@ package app.swellmap;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 import org.json.simple.parser.ParseException;
 import org.jsoup.nodes.Document;
@@ -10,49 +12,53 @@ import org.jsoup.select.Elements;
 
 public class ControlApp {
 
-    final private JSOUPConnection connection;
     final private DataFetch dataFetcher;
-    final private DateFetcher dateFetcher;
     final private RowsSelector rowsSelector;
-    final private Database database;
     ArrayList<String> locations;
     ArrayList<String> rows;
     ArrayList<Region> regions;
 
     public ControlApp() {
-        this.connection = new JSOUPConnection();
         this.dataFetcher = new DataFetch();
-        this.dateFetcher = new DateFetcher();
         this.rowsSelector = new RowsSelector();
-        this.database = new Database();
         this.regions = new ArrayList<>();
         this.locations = new ArrayList<>();
         this.rows = new ArrayList<>();
     }
 
-    public void runApp() throws IOException, ParseException {
+    public void runApp() throws IOException, ParseException, InterruptedException {
         this.rows = this.rowsSelector.rowsSelector();
         this.regions = this.dataFetcher.fetchLocations();
         if (rows.isEmpty()) {
             System.out.println("No data to collect");
         } else {
+            int threadCount = totalLocations(regions);
+            final CountDownLatch latch = new CountDownLatch(threadCount);
             for (Region region : this.regions) {
-                for (String location : region.getLocations()) {
-                    Document document = this.connection.connect(location);
-                    for (String row : rows) {
-                        try {
-                            Elements element = document.getElementsByClass(row);
-                            String summary = getSummary(element);
-                            String regionName = region.getName();
-                            String date = this.dateFetcher.getTodaysDate();
-                            Forecast forecast = extractForecast(element, location, summary, regionName, date);
-                            this.database.insert(forecast);
-                        } catch (Exception e) {
-                            System.out.println(e.getMessage());
+                for (final String location : region.getLocations()) {
+                    Thread t = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                Document document = (new JSOUPConnection()).get(location);
+                                for (String row : rows) {
+                                    Elements element = document.getElementsByClass(row);
+                                    String summary = getSummary(element);
+                                    String regionName = region.getName();
+                                    String date = (new DateFetcher()).getTodaysDate();
+                                    Forecast forecast = extractForecast(element, location, summary, regionName, date);
+                                    (new Database()).insert(forecast);
+                                    latch.countDown();
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         }
-                    }
+                    });
+                    t.start();
                 }
             }
+            latch.await(30, TimeUnit.SECONDS);
         }
     }
 
@@ -81,6 +87,14 @@ public class ControlApp {
         forecast.setGust(textArray[9]);
         forecast.setSummary(summary);
         return forecast;
+    }
+    
+    private int totalLocations(ArrayList<Region> regions) {
+        int cnt = 0;
+        for(Region region : regions) {
+            cnt += region.getLocations().size();
+        }
+        return cnt;
     }
 
 }

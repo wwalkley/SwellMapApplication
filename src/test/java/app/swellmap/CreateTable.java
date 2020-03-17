@@ -1,5 +1,6 @@
 package app.swellmap;
 
+import app.swellmap.ConfigHandler;
 import java.sql.*;
 
 public class CreateTable {
@@ -15,7 +16,7 @@ public class CreateTable {
             System.out.println("Opened database successfully");
 
             stmt = c.createStatement();
-            String sql = "CREATE TABLE forecasts "
+            String sql = "CREATE TABLE IF NOT EXISTS forecasts "
                     + "(REGION TEXT NOT NULL,"
                     + " LOCATION TEXT NOT NULL, "
                     + " DATE TEXT NOT NULL, "
