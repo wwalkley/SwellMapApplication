@@ -25,9 +25,9 @@ Your preferred Java IDE and SQLite editor is required to work on this project
 
 The following libraries/tool-kits were used to write the application
 
-  1. [Jsoup](https://jsoup.org/)
-  2. [json-simple] (https://code.google.com/archive/p/json-simple/)
-  3. [SQLite JDBC] (https://bitbucket.org/xerial/sqlite-jdbc/src/default/)
+  1. [JSoup](https://jsoup.org/)
+  2. [JSON Simple](https://code.google.com/archive/p/json-simple/)
+  3. [SQLite JDBC](https://bitbucket.org/xerial/sqlite-jdbc/src/default/)
   
 ### Development Environment Setup
 
