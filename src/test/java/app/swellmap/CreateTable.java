@@ -1,6 +1,6 @@
 package app.swellmap;
 
-import app.swellmap.ConfigHandler;
+import app.swellmap.handlers.ConfigHandler;
 import java.sql.*;
 
 public class CreateTable {

@@ -1,5 +1,12 @@
 package app.swellmap;
 
+import app.swellmap.handlers.RowSelectHandler;
+import app.swellmap.dao.ForecastDAO;
+import app.swellmap.models.Forecast;
+import app.swellmap.models.Region;
+import app.swellmap.helpers.HttpHelper;
+import app.swellmap.helpers.DateHelper;
+import app.swellmap.handlers.LocationsHandler;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
@@ -12,15 +19,15 @@ import org.jsoup.select.Elements;
 
 public class ControlApp {
 
-    final private DataFetch dataFetcher;
-    final private RowsSelector rowsSelector;
+    final private LocationsHandler dataFetcher;
+    final private RowSelectHandler rowsSelector;
     ArrayList<String> locations;
     ArrayList<String> rows;
     ArrayList<Region> regions;
 
     public ControlApp() {
-        this.dataFetcher = new DataFetch();
-        this.rowsSelector = new RowsSelector();
+        this.dataFetcher = new LocationsHandler();
+        this.rowsSelector = new RowSelectHandler();
         this.regions = new ArrayList<>();
         this.locations = new ArrayList<>();
         this.rows = new ArrayList<>();
@@ -28,7 +35,7 @@ public class ControlApp {
 
     public void runApp() throws IOException, ParseException, InterruptedException {
         this.rows = this.rowsSelector.rowsSelector();
-        this.regions = this.dataFetcher.fetchLocations();
+        this.regions = this.dataFetcher.getRegions();
         if (rows.isEmpty()) {
             System.out.println("No data to collect");
         } else {
@@ -40,14 +47,14 @@ public class ControlApp {
                         @Override
                         public void run() {
                             try {
-                                Document document = (new JSOUPConnection()).get(location);
+                                Document document = (new HttpHelper()).get(location);
                                 for (String row : rows) {
                                     Elements element = document.getElementsByClass(row);
                                     String summary = getSummary(element);
                                     String regionName = region.getName();
-                                    String date = (new DateFetcher()).getTodaysDate();
+                                    String date = (new DateHelper()).getTodaysDate();
                                     Forecast forecast = extractForecast(element, location, summary, regionName, date);
-                                    (new Database()).insert(forecast);
+                                    (new ForecastDAO()).insert(forecast);
                                     latch.countDown();
                                 }
                             } catch (Exception e) {

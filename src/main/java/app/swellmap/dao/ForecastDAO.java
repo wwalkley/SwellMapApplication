@@ -1,8 +1,10 @@
-package app.swellmap;
+package app.swellmap.dao;
 
+import app.swellmap.models.Forecast;
+import app.swellmap.handlers.ConnectionHandler;
 import java.sql.*;
 
-public class Database {
+public class ForecastDAO {
 
     public void insert(Forecast forecast) {
         try {
@@ -26,7 +28,7 @@ public class Database {
             pstmt.setString(13, forecast.getWindDirection());
             pstmt.setInt(14, forecast.getWindSpeed());
             pstmt.setInt(15, forecast.getGust());
-            pstmt.executeUpdate();
+            pstmt.execute();
             System.out.println(String.format("Inserted record for [%s] [%s] [%s]", forecast.getRegion(), forecast.getLocation(), forecast.getTime()));
             stmt.close();
         } catch (Exception e) {

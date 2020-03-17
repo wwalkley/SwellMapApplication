@@ -1,10 +1,10 @@
-package app.swellmap;
+package app.swellmap.helpers;
 
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
-public class DateFetcher {
+public class DateHelper {
 
     public String getTodaysDateForRowSelector() {
         DateFormat dateFormat = setDateFormatForRowSelector();

@@ -1,5 +1,6 @@
 package app.swellmap;
 
+import app.swellmap.handlers.ConfigHandler;
 import junit.framework.TestCase;
 
 public class TestConfig extends TestCase {
