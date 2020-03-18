@@ -54,10 +54,12 @@ public class ControlApp {
                                     String regionName = region.getName();
                                     String date = (new DateHelper()).getTodaysDate();
                                     Forecast forecast = extractForecast(element, location, summary, regionName, date);
-                                    (new ForecastDAO()).insert(forecast);
+                                    ForecastDAO dao = new ForecastDAO();
+                                    dao.delete(forecast);
+                                    dao.insert(forecast);
                                     latch.countDown();
                                 }
-                            } catch (Exception e) {
+                            } catch (IOException | ParseException e) {
                                 e.printStackTrace();
                             }
                         }
